@@ -14,19 +14,21 @@
 
     <!--------- Menu --------------------------->
     <section class="navbar">
-        <div class="menu"></div>
+        <div class="burger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
         <nav>
-            <ul>
+            <ul class="navliens">
                 <li><a href="#expertise">Expertise</a></li>
+
                 <li><a href="#tarif">Tarification</a></li>
                 <li><a href="#devis">Devis</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
-
-
-
-
     </section>
 
     <!-- ------------- Hero ------------------>
@@ -42,7 +44,7 @@
 
 
     <!-- ------------- Expertise ------------------- -->
-    <section class="expertise">
+    <section class="expertise" id="expertise">
         <div class="expertise-grille">
             <div class="expertise-container">
                 <div class="expertise-text">
@@ -58,22 +60,40 @@
 
         </div>
 
+    </section>
 
-        <h2 class="tpq">POURQUOI LES TARIFS SONT TRANSPARENTS ?</h2>
+    <section class="pq">
+        <h2 class="tpq">UNE RELATION DE CONFIANCE AVEC MES CLIENTS</h2>
 
         <ul class="listepq">
-            <li>Aucune mauvaise surprise : Tous nos tarifs sont annoncés avant l'intervention.</li>
-            <li>Qualité des composants : Nous utilisons uniquement des pièces certifiées pour garantir la durabilité.
+            <li>
+                <div class="icon-box">
+                    <img src="./assets/tarification.jpg" alt="Calculatrice" class="pq-img">
+                </div>
+                <strong>Aucune mauvaise surprise</strong>
+                <p>Tous nos tarifs sont annoncés et validés par devis avant chaque intervention.</p>
             </li>
-            <li>Suivi personnalisé : Chaque dossier est enregistré dans notre système sécurisé pour un historique
-                complet de votre matériel</li>
+            <li>
+                <div class="icon-box">
+                    <img src="./assets/comp.jpeg" alt="Composant electronique" class="pq-img">
+                </div>
+                <strong>Qualité des composants</strong>
+                <p>Nous utilisons uniquement des pièces certifiées et testées.</p>
+            </li>
+            <li>
+                <div class="icon-box">
+                    <img src="./assets/garantie.png" alt=" Logo de garantie" class="pq-img">
+                </div>
+                <strong>Garantie Sérénité</strong>
+                <p>Toutes nos réparations sont couvertes par une garantie pour vous assurer une tranquillité d'esprit
+                    .</p>
+            </li>
         </ul>
     </section>
 
 
-
     <!-- ----------------- TARIFS----------------------------- -->
-    <section class="tarif">
+    <section class="tarif" id="tarif">
         <h2 class="titretarif"> Forfaits Standards</h2>
         <p class="soustitretarif">Des tarifs transparents. Diagnostic gratuit .</p>
 
@@ -132,7 +152,7 @@
         </section>
 
     </section>
-    <section class="devis">
+    <section class="devis" id="devis">
         <h2 class="titredevis">Besoin d'un diagnostic personnalisé ?</h2>
         <p class="soustitredevis">Contactez-nous moi un devis gratuit.</p>
         <a href="#" class="btn-devis">Demander un diagnostic</a>
@@ -141,10 +161,58 @@
 
 
 
-    <footer>
+    <footer id="contact">
         <a href="mentions.html" class="btnmention">Mentions légales</a>
         <p>&copy; 2024 TechRépArt. Tous droits réservés.</p>
     </footer>
+</body>
+
+</html>
+
+
+<script>
+
+    // =========== Animation d'apparition au scroll ========== //
+    document.addEventListener("DOMContentLoaded", function () {
+        // On crée l'observateur
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                // Si l'élément devient visible à l'écran
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible'); // On lui ajoute la classe "visible"
+                    observer.unobserve(entry.target); // On arrête de l'observer (l'animation ne se joue qu'une fois)
+                }
+            });
+        }, {
+            threshold: 0.2 // Se déclenche quand 20% de la carte est visible
+        });
+
+        // On dit à l'observateur de surveiller toutes nos cartes
+        const elementsAObserver = document.querySelectorAll('.carteprix, .listepq li');
+        elementsAObserver.forEach((el) => observer.observe(el));
+    });
+
+    // =========== Menu Burger ========== //
+
+    const burger = document.querySelector('.burger');
+    const nav = document.querySelector('.navliens');
+    const navLinks = document.querySelectorAll('.navliens li');
+
+    burger.addEventListener('click', () => {
+        // Affiche ou cache le menu
+        nav.classList.toggle('nav-active');
+        // Anime le burger en croix
+        burger.classList.toggle('toggle');
+    });
+
+    // Ferme le menu quand on clique sur un lien 
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            nav.classList.remove('nav-active');
+            burger.classList.remove('toggle');
+        });
+    });
+</script>
 </body>
 
 </html>

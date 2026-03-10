@@ -1,5 +1,34 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes apparitionDouce {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.carteprix.visible,
+.listepq li.visible {
+    animation: apparitionDouce 0.8s ease-out forwards;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -7,14 +36,17 @@
     font-family: 'Poppins', sans-serif;
 }
 
-/* --- Mise en page globale --- */
 body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
-/* --- Menu  --- */
+
+/* ========== navbar ============ */
+
+
+/* --- Menu --- */
 .navbar {
     background-color: #0a192f;
     display: flex;
@@ -22,9 +54,22 @@ body {
     align-items: center;
     padding: 15px 5%;
     position: sticky;
-    /* Reste en haut lors du scroll */
     top: 0;
     z-index: 1000;
+}
+
+.burger {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.burger span {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    transition: all 0.3s ease;
 }
 
 .navbar ul {
@@ -42,16 +87,64 @@ body {
 
 .navbar ul li a:hover {
     color: #f38630;
-
 }
 
-/* --- Section Hero avec demande de devis --- */
+/* --- RESPONSIVE MOBILE --- */
+@media (max-width: 768px) {
+    .navbar {
+        justify-content: flex-end;
 
+    }
+
+    .burger {
+        display: flex;
+        z-index: 1001;
+    }
+
+    .navbar nav {
+        width: 100%;
+    }
+
+    .navbar ul {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #0a192f;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+        gap: 30px;
+        display: none;
+        /* Caché par défaut */
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+
+    .navbar ul.nav-active {
+        display: flex;
+    }
+
+    /* Animation  croix burger */
+    .burger.toggle span:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+
+    .burger.toggle span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .burger.toggle span:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+}
+
+/* ========== HERO ============ */
 
 .hero-banniere {
     position: relative;
     width: 100%;
-
     min-height: 85vh;
     overflow: hidden;
     background: #0a192f;
@@ -61,7 +154,6 @@ body {
 
 }
 
-/* Image de fond*/
 .hero-banniere img {
     position: absolute;
     top: 0;
@@ -69,12 +161,9 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-
     z-index: 1;
-    /* Z INDEX permet de gerer les plans des éléments, plus il est élevé, plus l'élément est au premier plan */
 }
 
-/* Overlay sombre pour bien lire le texte */
 .hero-banniere::after {
     content: '';
     position: absolute;
@@ -83,11 +172,9 @@ body {
     width: 100%;
     height: 100%;
     background: rgba(10, 25, 47, 0.5);
-
     z-index: 2;
 }
 
-/* Conteneur du texte  */
 .hero-overlay {
     position: relative;
     z-index: 3;
@@ -111,7 +198,6 @@ body {
     line-height: 1.5;
 }
 
-/* Bouton de devis */
 .btn-hero {
     display: inline-flex;
     align-items: center;
@@ -130,80 +216,33 @@ body {
     background-color: #f38630;
     color: #0a192f;
     transform: translateY(-3px);
-    /* Le bouton se soulève */
     box-shadow: 0 10px 20px rgba(243, 134, 48, 0.3);
     letter-spacing: 0.5px;
 }
 
-/* Effet d'enfoncement quand on clique */
 .btn-hero:active {
     transform: translateY(-1px);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
-@media (max-width: 768px) {
-    .hero-banniere {
-        height: 100vh;
-        justify-content: center;
-        text-align: center;
-    }
-
-    .hero-overlay {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .hero-overlay h1 {
-        font-size: 2.5rem;
-    }
-}
-
-/* --- Adaptation Mobile (Media Queries) --- */
-@media (max-width: 768px) {
-    .hero-banniere {
-        height: 100vh;
-        /* Toute la hauteur sur mobile */
-    }
-
-    .hero-overlay {
-        left: 5%;
-        top: 60%;
-        /* Descend un peu le texte sur mobile */
-        transform: translateY(-50%);
-        max-width: 90%;
-    }
-
-    .hero-overlay h1 {
-        font-size: 2.5rem;
-        /* Plus petit */
-    }
-}
-
-/* --- Section Expertise --- */
-
+/* ========== Expertise============ */
 
 .expertise {
     padding: 60px 10%;
     background-color: #ffffff;
 }
 
-/* image à côté du texte */
 .expertise-grille {
     display: flex;
     align-items: center;
-
     justify-content: space-between;
     gap: 50px;
-    /* Espace entre le bloc texte et l'image */
 }
 
-/* texte */
 .expertise-container {
     flex: 1.5;
 }
 
-/* Image  */
 .expertise-image {
     flex: 1;
     display: flex;
@@ -213,55 +252,110 @@ body {
 .expertise-image img {
     width: 100%;
     max-width: 450px;
-
     border-radius: 15px;
-
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-
 }
 
+/* ========== Pourquoi ============ */
 
-.item {
-    background: #daecff;
-    border-left: 5px solid #f38630;
-
-    padding: 20px;
-    margin-bottom: 15px;
-    border-radius: 0 10px 10px 0;
-    font-size: 1.05rem;
-    color: #333;
-}
-
-/* --- Responsive :  mobile --- */
-@media (max-width: 900px) {
-    .expertise-grille {
-        flex-direction: column;
-
-        text-align: center;
-    }
-
-    .item {
-        border-left: none;
-        border-top: 5px solid #f38630;
-        border-radius: 10px;
-    }
+.pq {
+    background-color: #0a192f;
+    color: white;
+    padding: 80px 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 .tpq {
-    margin-top: 40px;
     color: #f38630;
+    font-size: 2.2rem;
+    margin-bottom: 50px;
 }
 
 .listepq {
     display: flex;
-
-    flex-direction: column;
-    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
     list-style: none;
-    margin-top: 20px;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0;
+
 }
 
-/* ==== SECTION TARIFICATION === */
+.listepq li {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 40px 30px;
+    flex: 1;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    opacity: 0;
+    transition: transform 0.4s ease, border-color 0.4s ease, background 0.4s ease;
+}
+
+.listepq li:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.listepq li:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.listepq li:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+.listepq li:hover {
+    transform: translateY(-10px) !important;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: #f38630;
+}
+
+.icon-box {
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+}
+
+/* ========== Pourquoi img ============ */
+
+.pq-img {
+    width: 125px;
+    height: 125px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #f38630;
+    padding: 5px;
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease;
+}
+
+.listepq li:hover .pq-img {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 5px 15px rgba(243, 134, 48, 0.3);
+}
+
+.listepq li strong {
+    color: #f38630;
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+}
+
+.listepq li p {
+    color: #ddd;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ========== tarif ============ */
 
 .tarif {
     background-color: #f9f9f9;
@@ -278,47 +372,39 @@ body {
     margin-right: auto;
 }
 
-/* --- Grille des cartes --- */
 .grilletarif {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 40px;
-
     margin-top: 30px;
 }
 
-/* --- Design de la Carte --- */
 .carteprix {
     background: #ffffff;
-    width: 360px;
-
+    width: 100%;
+    max-width: 360px;
     padding: 40px 30px;
-
     border-radius: 12px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     border: 2px solid transparent;
-
     border-top: 4px solid #0a192f;
-
-
-    /* Animation */
-    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
-        box-shadow 0.4s ease,
-        border-color 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1),
+        box-shadow 0.8s ease,
+        border-color 0.8s ease;
 }
 
-/* EFFET HOVER ( */
 .carteprix:hover {
-    transform: translateY(-15px);
-
-    box-shadow: 0 20px 40px rgba(10, 25, 47, 0.12);
-
+    transform: translateY(-10px) scale(1.02) !important;
+    box-shadow:
+        0 20px 40px rgba(10, 25, 47, 0.08),
+        0 8px 20px rgba(243, 134, 48, 0.15);
     border-color: #f38630;
-
 }
 
-/* --- Titres à l'intérieur --- */
 .titrecarte h3 {
     text-align: center;
     color: #0a192f;
@@ -326,10 +412,8 @@ body {
     margin-bottom: 25px;
     padding-bottom: 15px;
     border-bottom: 2px solid #f38630;
-
 }
 
-/* --- Liste des prix --- */
 .listeprix {
     list-style: none;
     padding: 0;
@@ -337,7 +421,6 @@ body {
 }
 
 .listeprix li {
-
     padding: 15px 10px;
     border-bottom: 1px dashed #ddd;
     color: #0a192f;
@@ -351,8 +434,6 @@ body {
     border-bottom: none;
 }
 
-
-/* --- Note de bas de page --- */
 .note {
     width: 100%;
     text-align: center;
@@ -362,7 +443,8 @@ body {
 }
 
 
-/* --- SECTION DEVIS avec call to action --- */
+/* ========== DEVIS ============ */
+
 .section-devis {
     background-color: #f4f7f9;
     padding: 80px 5%;
@@ -373,22 +455,6 @@ body {
     text-align: center;
 }
 
-.titredevis {
-    color: #0a192f;
-    font-size: 2.2rem;
-    margin-bottom: 15px;
-}
-
-.soustitredevis {
-    color: #555;
-    font-size: 1.1rem;
-    margin-bottom: 40px;
-    max-width: 600px;
-}
-
-/* === SECTION DEVIS ==== */
-
-/* --- Le Conteneur --- */
 .devis,
 .section-devis {
     display: flex;
@@ -416,7 +482,6 @@ body {
     width: 100%;
 }
 
-/* --- BOUTON DEVIS --- */
 .btn-devis {
     display: inline-flex;
     align-items: center;
@@ -445,32 +510,43 @@ body {
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* --- Footer --- */
+/* ========== FOOTER============ */
 
 footer {
+    background-color: #050d1a;
+    color: #aaa;
+    text-align: center;
+    padding: 40px 5%;
     display: flex;
-
     flex-direction: column;
     align-items: center;
-    background-color: #0a192f;
+    gap: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.btnmention {
+    color: #f38630;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.btnmention:hover {
     color: white;
-    padding: 40px 0;
-    margin-top: auto;
+    text-decoration: underline;
+}
+
+footer p {
+    font-size: 0.85rem;
 }
 
 
+/* ========== Responsive ============ */
 
-
-/* --- RESPONSIVE MOBILE --- */
 @media (max-width: 768px) {
     .navbar {
         flex-direction: column;
         gap: 20px;
-    }
-
-    .grilletarif {
-        flex-direction: column;
-        align-items: center;
     }
 
     .titrecarte {
@@ -479,47 +555,41 @@ footer {
     }
 }
 
-/* --- HERO--- */
 @media (max-width: 768px) {
     .hero-banniere {
-        min-height: 90vh;
+        height: 100vh;
         justify-content: center;
         text-align: center;
-        padding: 80px 5%;
     }
 
     .hero-overlay {
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 100%;
     }
 
     .hero-overlay h1 {
-        font-size: 2.2rem;
-    }
-
-    .hero-overlay p {
-        font-size: 1rem;
-        margin-bottom: 40px;
-    }
-
-
-    .btn-hero {
-        width: 90%;
-        max-width: 320px;
-        justify-content: center;
+        font-size: 2.5rem;
     }
 }
 
-/* --- Devis --- */
+.hero-overlay p {
+    font-size: 1rem;
+    margin-bottom: 40px;
+}
+
+.btn-hero {
+    width: 90%;
+    max-width: 320px;
+    justify-content: center;
+}
+
 @media (max-width: 768px) {
 
     .devis,
     .section-devis {
         padding: 60px 5%;
         align-items: center !important;
-        /* force le centrage même si d'autres styles interfèrent */
         text-align: center !important;
     }
 
@@ -530,8 +600,21 @@ footer {
     .btn-devis {
         width: 100%;
         max-width: 300px;
-        /* Empêche le bouton de déborder de l'écran */
         justify-content: center;
         padding: 15px 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .pq {
+        padding: 60px 5%;
+    }
+
+    .tpq {
+        font-size: 1.8rem;
+    }
+
+    .listepq li {
+        padding: 30px 20px;
     }
 }
