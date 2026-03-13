@@ -109,8 +109,6 @@ Tout le contenu est dans **`index.html`**. Le fichier est organisé en sections 
 | Contact | `#contact` | Adresse, téléphone, email affiché |
 
 ```html
-<!-- Exemple : modifier le numéro de téléphone -->
-<a href="tel:+33XXXXXXXXX">+33 X XX XX XX XX</a>
 
 <!-- Exemple : modifier un tarif -->
 <span class="prix">À partir de XX €</span>
@@ -128,29 +126,30 @@ Tout le contenu est dans **`index.html`**. Le fichier est organisé en sections 
 Dans `index.html`, repérez la section `#expertise` et dupliquez un bloc existant :
 
 ```html
-<div class="prestation-card">
-  <img src="assets/img/icone-votre-service.png" alt="Description">
-  <h3>Titre de la prestation</h3>
-  <p>Description courte de la prestation proposée.</p>
-</div>
+<div class="item"><strong>💻 Réparation PC & Mac</strong> : Écrans, batteries, sauvetage de données.
+                    </div>
 ```
 
 ---
 
-### 3. Mettre à jour les tarifs
+### 3. Mettre à jour les tarifs 
 
 Dans la section `#tarifs`, chaque forfait suit cette structure :
 
 ```html
-<div class="forfait">
-  <h3>Nom du forfait</h3>
-  <ul>
-    <li>Service inclus 1</li>
-    <li>Service inclus 2</li>
-  </ul>
-  <p class="prix">À partir de XX €</p>
-  <p class="diagnostic">Diagnostic offert</p>
-</div>
+ <section class="grilletarif">
+            <div class="carteprix">
+                <div class="titrecarte">
+                    <h3>Smartphone</h3>
+                </div>
+                <ul class="listeprix">
+                    <li>Remplacement Écran ➡️Dès 59€</li>
+                    <li>Changement de Batterie ➡️ 39€</li>
+                    <li>Connecteur de charge ➡️ 45€</li>
+                    <li>Récupération de données ➡️ Sur Devis</li>
+                </ul>
+
+            </div>
 ```
 
 ---
