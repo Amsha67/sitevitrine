@@ -11,6 +11,7 @@
 |------|--------|
 | 🏢 Client | TechRépart — Strasbourg |
 | 👨‍💻 Développeur | Schmoelzlin Eric |
+| 🔗 Site | [www.techrepart.fr](https://www.techrepart.fr) |
 | 📅 Année | 2025 |
 | 📄 Licence | Privé / Propriétaire |
 
@@ -24,6 +25,9 @@ sitevitrine/
 ├── mentions.html       # Mentions légales & politique de confidentialité
 ├── traitement.php      # Traitement sécurisé du formulaire de contact
 └── assets/             # Images, CSS, JavaScript
+    ├── css/            # Feuilles de style
+    ├── js/             # Scripts JavaScript
+    └── img/            # Visuels et icônes
 ```
 
 ---
@@ -92,6 +96,146 @@ $destinataire = "votre@email.fr"; // ← Modifier ici
 
 ---
 
+## 📖 Documentation Technique d'Utilisation
+
+### 1. Modifier les contenus du site
+
+Tout le contenu est dans **`index.html`**. Le fichier est organisé en sections identifiées par des balises `id` :
+
+| Section | ID HTML | Contenu modifiable |
+|---------|---------|-------------------|
+| Accueil | `#accueil` | Titre, sous-titre, accroche |
+| Expertise | `#expertise` | Textes des prestations, icônes |
+| Tarification | `#tarifs` | Prix, intitulés des forfaits |
+| Contact | `#contact` | Adresse, téléphone, email affiché |
+
+```html
+<!-- Exemple : modifier le numéro de téléphone -->
+<a href="tel:+33XXXXXXXXX">+33 X XX XX XX XX</a>
+
+<!-- Exemple : modifier un tarif -->
+<span class="prix">À partir de XX €</span>
+```
+
+---
+
+### 2. Modifier les styles (CSS)
+
+Les styles se trouvent dans **`assets/css/`**. La charte graphique est définie via des variables CSS en début de fichier :
+
+```css
+:root {
+  --couleur-principale : #003366;  /* Bleu nuit — titres, bandeaux */
+  --couleur-accent     : #E88E00;  /* Orange — boutons, accents    */
+  --couleur-neutre     : #EEEEEE;  /* Gris clair — fonds tableaux  */
+  --police-titres      : 'Lato', sans-serif;
+  --police-corps       : 'Open Sans', sans-serif;
+}
+```
+
+> 💡 Pour changer une couleur sur tout le site, modifiez uniquement la variable correspondante.
+
+---
+
+### 3. Ajouter / modifier une prestation
+
+Dans `index.html`, repérez la section `#expertise` et dupliquez un bloc existant :
+
+```html
+<div class="prestation-card">
+  <img src="assets/img/icone-votre-service.png" alt="Description">
+  <h3>Titre de la prestation</h3>
+  <p>Description courte de la prestation proposée.</p>
+</div>
+```
+
+---
+
+### 4. Mettre à jour les tarifs
+
+Dans la section `#tarifs`, chaque forfait suit cette structure :
+
+```html
+<div class="forfait">
+  <h3>Nom du forfait</h3>
+  <ul>
+    <li>Service inclus 1</li>
+    <li>Service inclus 2</li>
+  </ul>
+  <p class="prix">À partir de XX €</p>
+  <p class="diagnostic">Diagnostic offert</p>
+</div>
+```
+
+---
+
+### 5. Configurer et tester le formulaire de contact
+
+Le fichier **`traitement.php`** gère l'envoi des messages. Les paramètres à vérifier :
+
+```php
+// ─── À CONFIGURER ───────────────────────────────────────────
+$destinataire = "contact@techrepart.fr";   // Email de réception
+$sujet_prefix = "[TechRépart] ";           // Préfixe de l'objet du mail
+// ────────────────────────────────────────────────────────────
+```
+
+**Tester le formulaire en local :**
+
+```bash
+# Démarrer un serveur PHP local
+php -S localhost:8000
+
+# Ouvrir dans le navigateur
+http://localhost:8000/index.html
+```
+
+> ⚠️ L'envoi de mail nécessite un vrai serveur avec une configuration SMTP valide. En local, utilisez [Mailtrap](https://mailtrap.io) pour simuler la réception.
+
+**Vérifier que l'anti-bot fonctionne :** soumettez le formulaire sans remplir la question captcha — le message doit être rejeté avec une erreur.
+
+---
+
+### 6. Mettre à jour les mentions légales
+
+Ouvrez **`mentions.html`** et mettez à jour les informations suivantes si nécessaire :
+
+- Nom / raison sociale du responsable de traitement
+- Adresse postale
+- Numéro SIRET
+- Coordonnées de l'hébergeur
+
+---
+
+### 7. Déployer une mise à jour
+
+```bash
+# 1. Modifier les fichiers en local
+# 2. Vérifier visuellement dans le navigateur
+# 3. Pousser les modifications sur GitHub
+git add .
+git commit -m "Description de la modification"
+git push origin main
+
+# 4. Sur l'hébergement : tirer les dernières modifications
+git pull origin main
+# — ou déposer les fichiers modifiés via FTP
+```
+
+---
+
+### 8. Checklist avant mise en ligne
+
+- [ ] Adresse email configurée dans `traitement.php`
+- [ ] Certificat SSL actif (HTTPS)
+- [ ] Formulaire testé (envoi + captcha)
+- [ ] Affichage vérifié sur mobile, tablette et desktop
+- [ ] Mentions légales à jour (SIRET, hébergeur, responsable RGPD)
+- [ ] Balises `<title>` et `<meta description>` renseignées dans `index.html`
+- [ ] Images optimisées (poids < 200 Ko recommandé)
+
+---
+
 ## 🎨 Charte Graphique
 
 | Élément | Valeur |
@@ -105,7 +249,10 @@ $destinataire = "votre@email.fr"; // ← Modifier ici
 
 ---
 
+## 📞 Contact
 
+**TechRépart Strasbourg**  
+🌐 [www.techrepart.fr](https://www.techrepart.fr)  
 👨‍💻 Développé par Schmoelzlin Eric
 
 ---
