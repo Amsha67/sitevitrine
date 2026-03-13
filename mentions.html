@@ -4,18 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link rel="stylesheet" href="./assets/style.css">
     <title>Mentions Légales</title>
 </head>
+<header>
+    <!--------- Menu --------------------------->
+    <section class="navbar">
+        <div class="burger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
 
-<body>
+        <nav>
+            <ul class="navliens">
+                <li><a href="index.html">Retour sur le site</a></li>
+            </ul>
+        </nav>
+    </section>
+
+</header>
+
+<body class="bodymention">
 
     <div class="mentionhaut">
-        <h1 class="tm">Mentions Légales</h1>
+        <h1 class="titremention">Mentions Légales</h1>
 
-        <h2 class="tmh2">Identité de l'entreprise</h2>
+        <h2 class="titrementionh2">Identité de l'entreprise</h2>
 
-        <ul class="mul">
+        <ul class="mentionul">
             <li>Nom Commercial : TechRépart.</li><br>
 
 
@@ -24,8 +41,8 @@
         </ul>
 
     </div>
-    <div class="coordoneesm">
-        <h2 class="tmh2">Coordonnées du Client</h2>
+    <div class="coordoneesmention">
+        <h2 class="titrementionh2">Coordonnées du Client</h2>
 
         Adresse de l'Atelier : 6 rue samsung.
 
@@ -35,7 +52,7 @@
 
     </div>
     <div class="editeur">
-        <h3 class="tmh3">1. Éditeur du site</h3>
+        <h3 class="titrementionh3">1. Éditeur du site</h3>
         Le présent site est édité par l'entreprise XXXX, représentée par son gérant.
 
         Forme Juridique : Entrepreneur Individuel (EI).
@@ -45,17 +62,17 @@
         Siège Social : 47503 Normand-sur-Riou.
     </div>
     <div class="propriete">
-        <h3 class="tmh3">2. Propriété Intellectuelle</h3>
+        <h3 class="titrementionh3">2. Propriété Intellectuelle</h3>
 
         Le contenu du site, incluant les textes et la charte graphique, est la propriété exclusive de TechRepArt.
         Toute reproduction sans accord préalable est interdite.
     </div>
     <div class="rgpd">
-        <h3 class="tmh3">3. Protection des Données (RGPD)</h3>
+        <h3 class="titrementionh3">3. Protection des Données (RGPD)</h3>
 
         Dans le cadre de son activité, TechRépart s'engage à ce que la collecte et le traitement de vos données soient
         conformes au Règlement Général sur la Protection des Données (RGPD).
-        <ul class="mul">
+        <ul class="mentionul">
             <li>Finalité : Les informations transmises via le formulaire de devis (nom, email, description de la panne)
                 sont
                 exclusivement utilisées pour répondre à votre demande et assurer le suivi de votre dossier.</li>
@@ -72,105 +89,19 @@
         </ul>
     </div>
     <div class="hebergement">
-        <h3 class="tmh3">4. Hébergement</h3>
+        <h3 class="titrementionh3">4. Hébergement</h3>
 
         Le site est hébergé par O2switch.
     </div>
     <div class="developpement">
-        <h3 class="tmh3">5. Développement</h3>
+        <h3 class="titrementionh3">5. Développement</h3>
 
         Site conçu et développé par SCHMOELZLIN Eric.
     </div>
+
 </body>
-<footer>
+<footer class="footermention">
     <p>&copy; 2024 RéparInfo. Tous droits réservés.</p>
 </footer>
 
 </html>
-
-<style>
-    body {
-        background-color: #3b4c5e;
-
-        color: #000000;
-        line-height: 1.6;
-    }
-
-    /* Titre principal */
-    .tm {
-        text-align: center;
-        color: #0a192f;
-        font-size: 2.5rem;
-        margin: 50px 0;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-    }
-
-    /* Design des blocs  */
-    .mentionhaut,
-    .coordoneesm,
-    .editeur,
-    .propriete,
-    .rgpd,
-    .hebergement,
-    .developpement {
-        background: #ffffff;
-        max-width: 900px;
-        margin: 0 auto 30px auto;
-        padding: 40px;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-
-        border-left: 5px solid #0a192f;
-
-    }
-
-    /* Titres de sections (H2 et H3) */
-
-
-    .tmh2,
-    .tmh3 {
-        color: #f38630;
-
-        margin-bottom: 20px;
-        font-size: 1.4rem;
-        display: flex;
-        align-items: center;
-    }
-
-    /* Style de la liste */
-    .mul {
-        list-style: none;
-        padding-left: 0;
-    }
-
-    .mul li {
-        margin-bottom: 10px;
-        padding-left: 20px;
-        position: relative;
-    }
-
-    .mul li::before {
-        content: "•";
-        color: #f38630;
-        position: absolute;
-        left: 0;
-        font-weight: bold;
-    }
-
-    /* Footer de la page mentions */
-    footer {
-        text-align: center;
-        padding: 40px;
-        background: #0a192f;
-        color: white;
-        margin-top: 50px;
-    }
-
-
-    .editeur,
-    .coordoneesm {
-        white-space: pre-line;
-
-    }
-</style>

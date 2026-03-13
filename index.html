@@ -10,8 +10,8 @@
 </head>
 
 
-<body>
 
+<header>
     <!--------- Menu --------------------------->
     <section class="navbar">
         <div class="burger">
@@ -30,13 +30,16 @@
         </nav>
     </section>
 
+</header>
+
+<body class="bodyindex">
     <!-- ------------- Hero ------------------>
 
     <section class="hero-banniere">
         <div class="hero-overlay">
             <h1>TechRépart :<br>L'Expertise Tech à Strasbourg</h1>
             <p>Prise en charge PC et Smartphones par un expert certifié.</p>
-            <a href="#" class="btn-hero">Demander un diagnostic</a>
+            <a href="#popup-contact" class="btn-hero">Demander un devis</a>
         </div>
         <img src="./assets/hero.png" alt="Image d'un atelier de réparation informatique avec un technicien travaillant">
     </section>
@@ -153,21 +156,35 @@
     </section>
     <section class="devis" id="devis">
         <h2 class="titredevis">Besoin d'un diagnostic personnalisé ?</h2>
-        <p class="soustitredevis">Contactez-moi moi un devis gratuit.</p>
-        <a href="#" class="btn-devis">Demander un diagnostic</a>
-
+        <p class="soustitredevis">Contactez-moi pour un devis gratuit.</p>
+        <a href="#popup-contact" class="btn-devis">Demander un diagnostic</a>
     </section>
 
+    <!-----------------  FORMULAIRE DE Contact ----------------------------- -->
+    <div id="popup-contact" class="fenetre-popup">
+        <div class="contenu-popup">
+            <span class="fermer-popup">&times;</span>
+
+            <h2 class="titre-contact">Demander un diagnostic</h2>
+            <p class="texte-contact">Réponse rapide et devis gratuit.</p>
+
+            <form action="traitement.php" method="POST" class="formulaire-contact">
+                <input type="text" name="nom" placeholder="Votre nom" required>
+                <input type="email" name="email" placeholder="Votre e-mail" required>
+                <textarea name="message" rows="4" placeholder="Détails du problème..." required></textarea>
+                <button type="submit" class="bouton-envoi">Envoyer </button>
+            </form>
+        </div>
+    </div>
 
 
-    <footer id="contact">
-        <a href="mentions.html" class="btnmention">Mentions légales</a>
-        <p>&copy; 2024 TechRépArt. Tous droits réservés.</p>
-    </footer>
 </body>
+<footer id="contact">
+    <a href="mentions.html" class="btnmention">Mentions légales</a>
+    <p>&copy; 2024 TechRépArt. Tous droits réservés.</p>
+</footer>
 
 </html>
-
 
 <script>
 
@@ -211,7 +228,45 @@
             burger.classList.remove('toggle');
         });
     });
-</script>
-</body>
 
-</html>
+
+    /// =========== Fenêtre de contact (Pop-up) ========== //
+
+    const boutonHero = document.querySelector(".btn-hero");
+    const boutonDevis = document.querySelector(".btn-devis");
+    const popup = document.getElementById("popup-contact");
+    const boutonFermer = document.querySelector(".fermer-popup");
+
+    // Fonction unique pour ouvrir la popup
+    const ouvrirLaFenetre = function (e) {
+        e.preventDefault();
+        popup.style.display = "block";
+        document.body.style.overflow = "hidden"; // Empêche le scroll du site en fond
+    };
+
+    // Ouverture via bouton 
+    if (boutonHero) {
+        boutonHero.onclick = ouvrirLaFenetre;
+    }
+
+    if (boutonDevis) {
+        boutonDevis.onclick = ouvrirLaFenetre;
+    }
+
+    // Fermeture au clic sur la croix
+    if (boutonFermer) {
+        boutonFermer.onclick = function () {
+            popup.style.display = "none";
+            document.body.style.overflow = "auto"; // Réactive le scroll
+        }
+    }
+
+    // Fermeture si on clique n'importe où en dehors de la boîte blanche
+    window.onclick = function (event) {
+        if (event.target == popup) {
+            popup.style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+    }
+
+</script>
