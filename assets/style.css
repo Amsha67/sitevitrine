@@ -89,7 +89,7 @@ body {
     color: #f38630;
 }
 
-/* --- RESPONSIVE MOBILE --- */
+/* --- RESPONSIVE MOBILE MENU BURGER --- */
 @media (max-width: 768px) {
     .navbar {
         justify-content: flex-end;
