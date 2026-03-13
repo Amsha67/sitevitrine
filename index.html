@@ -174,10 +174,19 @@
             <p class="texte-contact">Réponse rapide et devis gratuit.</p>
 
             <form action="traitement.php" method="POST" class="formulaire-contact">
+                <div style="display:none;"><input type="text" name="anti_robot"></div>
+
                 <input type="text" name="nom" placeholder="Votre nom" required>
-                <input type="email" name="email" placeholder="Votre e-mail" required>
+
+                <input type="email" name="email" placeholder="Votre e-mail"
+                    pattern="^[\w\-]+(\.[\w\-]+)*@[\w\-]+(\.[\w\-]+)*\.[\w\-]{2,4}$"
+                    title="Veuillez entrer un email valide" required>
+
+                <input type="tel" name="telephone" placeholder="Téléphone (ex: 0601020304)" pattern="[0-9]{10}"
+                    title="ex : 06.35.XX.XX.XX (10 chiffres)" required>
+
                 <textarea name="message" rows="4" placeholder="Détails du problème..." required></textarea>
-                <button type="submit" class="bouton-envoi">Envoyer </button>
+                <button type="submit" class="bouton-envoi">Envoyer</button>
             </form>
         </div>
     </div>
@@ -191,101 +200,54 @@
 
 </html>
 
+
+
 <script>
 
-    // =========== Animation d'apparition au scroll ========== //
-    document.addEventListener("DOMContentLoaded", function () {
-        // On crée l'observateur
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                // Si l'élément devient visible à l'écran
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible'); // On lui ajoute la classe "visible"
-                    observer.unobserve(entry.target); // On arrête de l'observer (l'animation ne se joue qu'une fois)
-                }
-            });
-        }, {
-            threshold: 0.2 // Se déclenche quand 20% de la carte est visible
+
+    // 1. Animation au scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
         });
+    }, { threshold: 0.1 });
 
-        // On dit à l'observateur de surveiller toutes nos cartes
-        const elementsAObserver = document.querySelectorAll('.carteprix, .listepq li');
-        elementsAObserver.forEach((el) => observer.observe(el));
-    });
+    document.querySelectorAll('.carteprix, .listepq li').forEach(el => observer.observe(el));
 
-    // =========== Menu Burger ========== //
-
+    // 2. Menu Burger & Popup 
     const burger = document.querySelector('.burger');
     const nav = document.querySelector('.navliens');
-    const navLinks = document.querySelectorAll('.navliens li');
+    const popup = document.getElementById("popup-contact");
+    const boutonsPopup = document.querySelectorAll(".btn-hero, .btn-devis, .fermer-popup");
 
+    // Click Burger
     burger.addEventListener('click', () => {
-        // Affiche ou cache le menu
         nav.classList.toggle('nav-active');
-        // Anime le burger en croix
         burger.classList.toggle('toggle');
     });
 
-    // Ferme le menu quand on clique sur un lien 
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            nav.classList.remove('nav-active');
-            burger.classList.remove('toggle');
+    // Click Popup (Ouvrir/Fermer)
+    boutonsPopup.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const estOuvert = popup.classList.toggle('active');
+            document.body.style.overflow = estOuvert ? "hidden" : "auto";
         });
     });
 
-
-    /// =========== Fenêtre de contact (Pop-up) ========== //
-
-    const boutonHero = document.querySelector(".btn-hero");
-    const boutonDevis = document.querySelector(".btn-devis");
-    const popup = document.getElementById("popup-contact");
-    const boutonFermer = document.querySelector(".fermer-popup");
-
-    // Fonction unique pour ouvrir la popup
-    const ouvrirLaFenetre = function (e) {
-        e.preventDefault();
-        popup.style.display = "block";
-        document.body.style.overflow = "hidden"; // Empêche le scroll du site en fond
-    };
-
-    // Ouverture via bouton 
-    if (boutonHero) {
-        boutonHero.onclick = ouvrirLaFenetre;
-    }
-
-    if (boutonDevis) {
-        boutonDevis.onclick = ouvrirLaFenetre;
-    }
-
-    // Fermeture au clic sur la croix
-    if (boutonFermer) {
-        boutonFermer.onclick = function () {
-            popup.style.display = "none";
-            document.body.style.overflow = "auto"; // Réactive le scroll
-        }
-    }
-
-
-
-    // Gestion de la fermeture  (Popup + Burger)
-    document.addEventListener('click', (event) => {
-
-        // 1. FERMETURE POPUP
-        // Si on clique sur le fond de la popup
-        if (event.target === popup) {
-            popup.style.display = "none";
+    // Fermeture globale (Clic extérieur)
+    window.addEventListener('click', (e) => {
+        // Fermer Popup si clic sur le fond
+        if (e.target === popup) {
+            popup.classList.remove('active');
             document.body.style.overflow = "auto";
         }
-
-        // 2. FERMETURE BURGER
-        // Si le menu est ouvert ET que le clic n'est ni sur le burger, ni dans le menu
-        if (nav.classList.contains('nav-active')) {
-            if (!nav.contains(event.target) && !burger.contains(event.target)) {
-                nav.classList.remove('nav-active');
-                burger.classList.remove('toggle');
-            }
+        // Fermer Burger si clic ailleurs
+        if (!nav.contains(e.target) && !burger.contains(e.target) && nav.classList.contains('nav-active')) {
+            nav.classList.remove('nav-active');
+            burger.classList.remove('toggle');
         }
     });
-
 </script>
