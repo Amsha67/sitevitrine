@@ -14,11 +14,16 @@
 <header>
     <!--------- Menu --------------------------->
     <section class="navbar">
-        <div class="burger">
+        <div class="burger" aria-label="Menu de navigation" role="button" tabindex="0">
+            <!-- aria-label permet de communiquer avec un malvoyant -->
+            <!-- tabindex="0" rend le bouton accessible au clavier avec TAB -->
+
+            <!-- Trois lignes menu burger -->
             <span></span>
             <span></span>
             <span></span>
         </div>
+
 
         <nav>
             <ul class="navliens">
@@ -261,12 +266,26 @@
         }
     }
 
-    // Fermeture si on clique n'importe où en dehors de la boîte blanche
-    window.onclick = function (event) {
-        if (event.target == popup) {
+
+
+    // Gestion de la fermeture  (Popup + Burger)
+    document.addEventListener('click', (event) => {
+
+        // 1. FERMETURE POPUP
+        // Si on clique sur le fond de la popup
+        if (event.target === popup) {
             popup.style.display = "none";
             document.body.style.overflow = "auto";
         }
-    }
+
+        // 2. FERMETURE BURGER
+        // Si le menu est ouvert ET que le clic n'est ni sur le burger, ni dans le menu
+        if (nav.classList.contains('nav-active')) {
+            if (!nav.contains(event.target) && !burger.contains(event.target)) {
+                nav.classList.remove('nav-active');
+                burger.classList.remove('toggle');
+            }
+        }
+    });
 
 </script>
