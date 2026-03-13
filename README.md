@@ -118,25 +118,12 @@ Tout le contenu est dans **`index.html`**. Le fichier est organisé en sections 
 
 ---
 
-### 2. Modifier les styles (CSS)
-
-Les styles se trouvent dans **`assets/css/`**. La charte graphique est définie via des variables CSS en début de fichier :
-
-```css
-:root {
-  --couleur-principale : #003366;  /* Bleu nuit — titres, bandeaux */
-  --couleur-accent     : #E88E00;  /* Orange — boutons, accents    */
-  --couleur-neutre     : #EEEEEE;  /* Gris clair — fonds tableaux  */
-  --police-titres      : 'Lato', sans-serif;
-  --police-corps       : 'Open Sans', sans-serif;
-}
-```
 
 > 💡 Pour changer une couleur sur tout le site, modifiez uniquement la variable correspondante.
 
 ---
 
-### 3. Ajouter / modifier une prestation
+### 2. Ajouter / modifier une prestation
 
 Dans `index.html`, repérez la section `#expertise` et dupliquez un bloc existant :
 
@@ -150,7 +137,7 @@ Dans `index.html`, repérez la section `#expertise` et dupliquez un bloc existan
 
 ---
 
-### 4. Mettre à jour les tarifs
+### 3. Mettre à jour les tarifs
 
 Dans la section `#tarifs`, chaque forfait suit cette structure :
 
@@ -168,7 +155,7 @@ Dans la section `#tarifs`, chaque forfait suit cette structure :
 
 ---
 
-### 5. Configurer et tester le formulaire de contact
+### 4. Configurer et tester le formulaire de contact
 
 Le fichier **`traitement.php`** gère l'envoi des messages. Les paramètres à vérifier :
 
@@ -195,7 +182,7 @@ http://localhost:8000/index.html
 
 ---
 
-### 6. Mettre à jour les mentions légales
+### 5. Mettre à jour les mentions légales
 
 Ouvrez **`mentions.html`** et mettez à jour les informations suivantes si nécessaire :
 
@@ -206,7 +193,7 @@ Ouvrez **`mentions.html`** et mettez à jour les informations suivantes si néce
 
 ---
 
-### 7. Déployer une mise à jour
+### 6. Déployer une mise à jour
 
 ```bash
 # 1. Modifier les fichiers en local
@@ -223,7 +210,7 @@ git pull origin main
 
 ---
 
-### 8. Checklist avant mise en ligne
+### 7. Checklist avant mise en ligne
 
 - [ ] Adresse email configurée dans `traitement.php`
 - [ ] Certificat SSL actif (HTTPS)
@@ -248,9 +235,9 @@ git pull origin main
 
 ---
 
-## 📞 Contact
 
-**TechRépart Strasbourg**  
+
+
 👨‍💻 Développé par Schmoelzlin Eric
 
 ---
