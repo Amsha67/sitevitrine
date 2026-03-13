@@ -186,10 +186,22 @@
                     title="ex : 06.35.XX.XX.XX (10 chiffres)" required>
 
                 <textarea name="message" rows="4" placeholder="Détails du problème..." required></textarea>
+
+                <!--- "honeypot" , uniquement les bot remplissent" ----->
+
+                <div style="display:none;">
+                    <input type="text" name="bip_boop_robot" value="">
+                </div>
+                <!-- Captacha -->
+
+
+
                 <button type="submit" class="bouton-envoi">Envoyer</button>
             </form>
         </div>
     </div>
+
+
 
 
 </body>
