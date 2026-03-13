@@ -11,7 +11,6 @@
 |------|--------|
 | 🏢 Client | TechRépart — Strasbourg |
 | 👨‍💻 Développeur | Schmoelzlin Eric |
-| 🔗 Site | [www.techrepart.fr](https://www.techrepart.fr) |
 | 📅 Année | 2025 |
 | 📄 Licence | Privé / Propriétaire |
 
