@@ -220,7 +220,7 @@
 <script>
 
 
-    // 1. Animation au scroll
+    // Animation au scroll
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -231,28 +231,56 @@
 
     document.querySelectorAll('.carteprix, .listepq li').forEach(el => observer.observe(el));
 
-    // Sélection des éléments
+    // --- SÉLECTION DES ÉLÉMENTS ---
+    const burger = document.querySelector('.burger');
+    const nav = document.querySelector('.navliens');
     const popup = document.getElementById("popup-contact");
     const btnOuvrir = document.querySelectorAll('.btn-hero, .btn-devis');
     const btnFermer = document.querySelector('.fermer-popup');
 
-    // Fonction pour ouvrir
-    btnOuvrir.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            popup.style.display = "flex";
-            setTimeout(() => popup.classList.add('active'), 10);
-            document.body.style.overflow = "hidden"; // Bloque le scroll du site
-        });
-    });
-
-    // Fonction pour fermer
-    const fermerLaPopup = () => {
-        popup.classList.remove('active');
-        setTimeout(() => popup.style.display = "none", 300);
-        document.body.style.overflow = "auto"; // Rend le scroll au site
+    // --- GESTION DU MENU BURGER ---
+    const toggleBurger = () => {
+        nav.classList.toggle('nav-active');
+        burger.classList.toggle('toggle');
     };
 
+    burger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleBurger();
+    });
+
+    // --- GESTION DE LA POPUP ---
+    const ouvrirPopup = (e) => {
+        e.preventDefault();
+        popup.style.display = "flex";
+        setTimeout(() => popup.classList.add('active'), 10);
+        document.body.style.overflow = "hidden"; // Bloque le scroll
+    };
+
+    const fermerPopup = () => {
+        popup.classList.remove('active');
+        setTimeout(() => popup.style.display = "none", 300);
+        document.body.style.overflow = "auto"; // Libère le scroll
+    };
+
+    btnOuvrir.forEach(btn => btn.addEventListener('click', ouvrirPopup));
+    btnFermer.addEventListener('click', fermerPopup);
+
+    // --- GESTION DES CLICS EXTÉRIEURS ---
+
+    window.addEventListener('click', (e) => {
+        // 1. fermeture popup clic extern
+        if (e.target === popup) {
+            fermerPopup();
+        }
+
+        // fermeture burger clic extern
+        if (nav.classList.contains('nav-active')) {
+            if (!nav.contains(e.target) && !burger.contains(e.target)) {
+                toggleBurger();
+            }
+        }
+    });
 
     //  Captcha 
 
