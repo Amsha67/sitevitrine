@@ -515,13 +515,19 @@
     background: rgba(10, 25, 47, 0.9);
     backdrop-filter: blur(10px);
     z-index: 2000;
+
+
     display: none;
     align-items: center;
     justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
+/* État quand on ajoute la classe .active en JS */
 .fenetre-popup.active {
     display: flex;
+    opacity: 1;
 }
 
 .contenu-popup {
@@ -532,6 +538,14 @@
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     position: relative;
 
+    /* --- animation --- */
+    transform: translateY(20px) scale(0.9);
+    transition: transform 0.4s cubic-bezier(0.17, 0.84, 0.44, 1);
+}
+
+.fenetre-popup.active .contenu-popup {
+    transform: translateY(0) scale(1);
+    opacity: 1;
 }
 
 .formulaire-contact {
@@ -600,6 +614,7 @@
 }
 
 /* --- Responsive formulaire --- */
+
 @media (max-width: 768px) {
     .fenetre-popup {
         padding: 10px;
@@ -609,7 +624,7 @@
         width: 100%;
         max-height: 90vh;
         overflow-y: auto;
-        /* scroll pour le mobile */
+        /* Scroll actif sur mobile */
         padding: 20px;
         border-radius: 15px;
     }
@@ -618,14 +633,26 @@
         gap: 10px;
     }
 
-    .acceptation-rgpd label {
-        font-size: 0.9rem;
-    }
+    .bouton-envoi {
+        width: 100% !important;
 
-    .acceptation-rgpd {
-        padding: 5px;
+        padding: 18px;
+        border-radius: 12px;
     }
 }
+
+.formulaire-contact {
+    gap: 10px;
+}
+
+.acceptation-rgpd label {
+    font-size: 0.9rem;
+}
+
+.acceptation-rgpd {
+    padding: 5px;
+}
+
 
 .bouton-envoi {
     width: 100%;

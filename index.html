@@ -231,53 +231,41 @@
 
     document.querySelectorAll('.carteprix, .listepq li').forEach(el => observer.observe(el));
 
-    // 2. Menu Burger & Popup 
-    const burger = document.querySelector('.burger');
-    const nav = document.querySelector('.navliens');
+    // Sélection des éléments
     const popup = document.getElementById("popup-contact");
-    const boutonsPopup = document.querySelectorAll(".btn-hero, .btn-devis, .fermer-popup");
+    const btnOuvrir = document.querySelectorAll('.btn-hero, .btn-devis');
+    const btnFermer = document.querySelector('.fermer-popup');
 
-    // Click Burger
-    burger.addEventListener('click', () => {
-        nav.classList.toggle('nav-active');
-        burger.classList.toggle('toggle');
-    });
-
-    // Click Popup (Ouvrir/Fermer)
-    boutonsPopup.forEach(btn => {
+    // Fonction pour ouvrir
+    btnOuvrir.forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
-            const estOuvert = popup.classList.toggle('active');
-            document.body.style.overflow = estOuvert ? "hidden" : "auto";
+            popup.style.display = "flex";
+            setTimeout(() => popup.classList.add('active'), 10);
+            document.body.style.overflow = "hidden"; // Bloque le scroll du site
         });
     });
 
-    // Fermeture globale (Clic extérieur)
-    window.addEventListener('click', (e) => {
-        // Fermer Popup si clic sur le fond
-        if (e.target === popup) {
-            popup.classList.remove('active');
-            document.body.style.overflow = "auto";
-        }
-        // Fermer Burger si clic ailleurs
-        if (!nav.contains(e.target) && !burger.contains(e.target) && nav.classList.contains('nav-active')) {
-            nav.classList.remove('nav-active');
-            burger.classList.remove('toggle');
-        }
-    });
+    // Fonction pour fermer
+    const fermerLaPopup = () => {
+        popup.classList.remove('active');
+        setTimeout(() => popup.style.display = "none", 300);
+        document.body.style.overflow = "auto"; // Rend le scroll au site
+    };
 
-    // 3. Captcha 
 
-    // 1. Génération aléatoire au chargement
+    //  Captcha 
+
+    //  Génération aléatoire au chargement
     const n1 = Math.floor(Math.random() * 10) + 1;
     const n2 = Math.floor(Math.random() * 10) + 1;
     const totalPropre = n1 + n2;
 
-    // 2. Affichage dans les span
+    //  Affichage dans les span
     document.getElementById('nb1').textContent = n1;
     document.getElementById('nb2').textContent = n2;
 
-    // 3. Vérification lors de l'envoi du formulaire
+    //  Vérification lors de l'envoi du formulaire
     const monForm = document.querySelector('.formulaire-contact');
 
     monForm.addEventListener('submit', function (e) {
