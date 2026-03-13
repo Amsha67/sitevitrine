@@ -159,6 +159,9 @@
         </section>
 
     </section>
+
+    <!-- Demande de devis  -->
+
     <section class="devis" id="devis">
         <h2 class="titredevis">Besoin d'un diagnostic personnalisé ?</h2>
         <p class="soustitredevis">Contactez-moi pour un devis gratuit.</p>
@@ -166,6 +169,7 @@
     </section>
 
     <!-----------------  FORMULAIRE DE Contact ----------------------------- -->
+
     <div id="popup-contact" class="fenetre-popup">
         <div class="contenu-popup">
             <span class="fermer-popup">&times;</span>
@@ -180,29 +184,28 @@
 
                 <input type="email" name="email" placeholder="Votre e-mail"
                     pattern="^[\w\-]+(\.[\w\-]+)*@[\w\-]+(\.[\w\-]+)*\.[\w\-]{2,4}$"
-                    title="Veuillez entrer un email valide" required>
+                    title="Veuillez entrer un email valide" required> <!-- regex pour valider l'email -->
 
                 <input type="tel" name="telephone" placeholder="Téléphone (ex: 0601020304)" pattern="[0-9]{10}"
                     title="ex : 06.35.XX.XX.XX (10 chiffres)" required>
 
-                <textarea name="message" rows="4" placeholder="Détails du problème..." required></textarea>
 
-                <!--- "honeypot" , uniquement les bot remplissent" ----->
+                <textarea name="message" rows="3" placeholder="Détails du problème..." required></textarea>
 
-                <div style="display:none;">
-                    <input type="text" name="bip_boop_robot" value="">
+                <!-- Captchaanti-robot -->
+                <div class="antibot">
+                    <label>Combien font <span id="nb1"></span> + <span id="nb2"></span> ?</label>
+                    <input type="number" id="reponse_utilisateur" placeholder="Réponse" required>
                 </div>
-                <!-- Captacha -->
 
-
-
-                <button type="submit" class="bouton-envoi">Envoyer</button>
+                <div class="acceptation-rgpd">
+                    <input type="checkbox" id="rgpd" name="rgpd" required>
+                    <label for="rgpd">J'accepte que mes données soient utilisées pour le diagnostic technique.</label>
+                </div>
+                <button type="submit" class="bouton-envoi">Envoyer la demande</button>
             </form>
         </div>
     </div>
-
-
-
 
 </body>
 <footer id="contact">
@@ -260,6 +263,29 @@
         if (!nav.contains(e.target) && !burger.contains(e.target) && nav.classList.contains('nav-active')) {
             nav.classList.remove('nav-active');
             burger.classList.remove('toggle');
+        }
+    });
+
+    // 3. Captcha 
+
+    // 1. Génération aléatoire au chargement
+    const n1 = Math.floor(Math.random() * 10) + 1;
+    const n2 = Math.floor(Math.random() * 10) + 1;
+    const totalPropre = n1 + n2;
+
+    // 2. Affichage dans les span
+    document.getElementById('nb1').textContent = n1;
+    document.getElementById('nb2').textContent = n2;
+
+    // 3. Vérification lors de l'envoi du formulaire
+    const monForm = document.querySelector('.formulaire-contact');
+
+    monForm.addEventListener('submit', function (e) {
+        const saisie = parseInt(document.getElementById('reponse_utilisateur').value);
+
+        if (saisie !== totalPropre) {
+            e.preventDefault(); // Empêche l'envoi vers traitement.php quand calcul faux
+            alert("Calcul faux ! Vous n'êtes pas humain.");
         }
     });
 </script>
