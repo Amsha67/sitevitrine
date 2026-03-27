@@ -162,6 +162,7 @@ Le fichier **`traitement.php`** gère l'envoi des messages. Les paramètres à v
 // ─── À CONFIGURER ───────────────────────────────────────────
 $destinataire = "contact@techrepart.fr";   // Email de réception
 $sujet_prefix = "[TechRépart] ";           // Préfixe de l'objet du mail
+$mail->Password   = 'VOTRE MOT DE PASSE SECRET GMAIL';
 // ────────────────────────────────────────────────────────────
 ```
 
