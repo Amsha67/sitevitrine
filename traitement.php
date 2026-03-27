@@ -55,15 +55,15 @@ try {
     $mail->isSMTP();
     $mail->Host       = 'smtp.gmail.com';
     $mail->SMTPAuth   = true;
-    $mail->Username   = 'ericschmolzlin@gmail.com';
-    $mail->Password   = 'eijq snin ddja emwx';
+    $mail->Username   = 'VOTRE_ADRESSE_GMAIL'; // a remplir
+    $mail->Password   = 'CLESECRETE'; // a remplir
     $mail->SMTPSecure = 'tls';
     $mail->Port       = 587;
     $mail->CharSet    = 'UTF-8';
 
     // Mail envoyé 
-    $mail->setFrom('ericschmolzlin@gmail.com', $nom);
-    $mail->addAddress('ericschmolzlin@gmail.com');
+    $mail->setFrom('MAIL', $nom); // a remplir
+    $mail->addAddress('MAIL', 'Destinataire'); // a remplir
     $mail->addReplyTo($email, $nom);
 
     $mail->isHTML(true);
