@@ -85,15 +85,6 @@ git clone https://github.com/Amsha67/sitevitrine.git
 # 4. Vérifier que le certificat SSL est actif
 ```
 
-### Configuration du formulaire
-
-Ouvrez `traitement.php` et renseignez votre adresse de réception :
-
-```php
-$destinataire = "votre@email.fr"; // ← Modifier ici
-```
-
----
 
 ## 📖 Documentation Technique d'Utilisation
 
@@ -172,7 +163,7 @@ $mail->Password   = 'VOTRE MOT DE PASSE SECRET GMAIL';
 php -S localhost:8000
 
 # Ouvrir dans le navigateur
-http://localhost:8000/index.html
+http://localhost:8000/sitevitrine
 ```
 
 > ⚠️ L'envoi de mail nécessite un vrai serveur avec une configuration SMTP valide. En local, utilisez [Mailtrap](https://mailtrap.io) pour simuler la réception.
