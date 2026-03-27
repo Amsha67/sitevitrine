@@ -180,7 +180,7 @@
             <form action="traitement.php" method="POST" class="formulaire-contact">
                 <div style="display:none;"><input type="text" name="anti_robot"></div>
 
-                <input type="text" name="nom" placeholder="Votre nom" required>
+                <input type="text" name="nom" placeholder="Votre nom" required maxlength="50">
 
                 <input type="email" name="email" placeholder="Votre e-mail"
                     pattern="^[\w\-]+(\.[\w\-]+)*@[\w\-]+(\.[\w\-]+)*\.[\w\-]{2,4}$"
@@ -189,13 +189,16 @@
                 <input type="tel" name="telephone" placeholder="Téléphone (ex: 0601020304)" pattern="[0-9]{10}"
                     title="ex : 06.35.XX.XX.XX (10 chiffres)" required>
 
+                <input type="text" name="objet" placeholder="Objet du message" required maxlength="100">
 
                 <textarea name="message" rows="3" placeholder="Détails du problème..." required></textarea>
 
                 <!-- Captchaanti-robot -->
                 <div class="antibot">
                     <label>Combien font <span id="nb1"></span> + <span id="nb2"></span> ?</label>
-                    <input type="number" id="reponse_utilisateur" placeholder="Réponse" required>
+                    <input type="number" id="reponse_utilisateur" name="reponse_utilisateur" placeholder="Réponse"
+                        required>
+                    <input type="hidden" name="total_secret" id="total_secret">
                 </div>
 
                 <div class="acceptation-rgpd">
@@ -204,6 +207,19 @@
                 </div>
                 <button type="submit" class="bouton-envoi">Envoyer la demande</button>
             </form>
+        </div>
+    </div>
+
+
+    <!----------------- Formulaire de Confirmation de l'envoi du formulaire :) ----------------------------- -->
+
+    <div class="confirmation" id="confirmation">
+        <div class="confirmation-carte">
+            <div class="icone-ok">✅</div>
+            <h2>Demande bien reçue !</h2>
+            <p>Nous avons bien reçu votre message et vous répondrons dans les plus brefs délais.</p>
+            <p>Un accusé de réception vous à été transmis</p>
+            <button class="btn-retour-site" id="btn-retour">← Retour au site</button>
         </div>
     </div>
 
@@ -292,16 +308,44 @@
     //  Affichage dans les span
     document.getElementById('nb1').textContent = n1;
     document.getElementById('nb2').textContent = n2;
+    document.getElementById('total_secret').value = totalPropre;
 
-    //  Vérification lors de l'envoi du formulaire
+    //  Vérification et envoi AJAX du formulaire
     const monForm = document.querySelector('.formulaire-contact');
+    const confirmation = document.getElementById('confirmation');
+    const btnRetour = document.getElementById('btn-retour');
 
     monForm.addEventListener('submit', function (e) {
-        const saisie = parseInt(document.getElementById('reponse_utilisateur').value);
+        e.preventDefault();
 
+        const saisie = parseInt(document.getElementById('reponse_utilisateur').value);
         if (saisie !== totalPropre) {
-            e.preventDefault(); // Empêche l'envoi vers traitement.php quand calcul faux
             alert("Calcul faux ! Vous n'êtes pas humain.");
+            return;
         }
+
+        const formData = new FormData(monForm);
+
+        fetch('traitement.php', {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.text())
+            .then(reponse => {
+                if (reponse.trim() === 'success') {
+                    fermerPopup();
+                    confirmation.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    alert("Une erreur est survenue : " + reponse);
+                }
+            })
+            .catch(() => alert("Erreur réseau. Veuillez réessayer."));
+    });
+
+    btnRetour.addEventListener('click', () => {
+        confirmation.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        monForm.reset();
     });
 </script>
